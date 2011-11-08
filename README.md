@@ -8,10 +8,17 @@ enabling a provider for the standard [`package` resource type][2].
 Installation
 ------------
 
-The latest stable release can be downloaded from the PuppetForge: [mudge/pkgin][3]
+The latest stable release can be downloaded from the Puppet Module Forge: [mudge/pkgin][3]
 
-Once installed, simply ensure that the `pkgin` module is in your Puppet `modulepath`
-then `pkgin` can be used as a package provider.
+Using the `puppet-module` gem, this is as simple as:
+
+```console
+$ cd /opt/local/etc/puppet/modules
+# puppet-module install mudge/pkgin
+Installed "mudge-pkgin-0.0.1" into directory: pkgin
+```
+
+(Assuming `/opt/local/etc/puppet/modules` is in your `modulepath`.)
 
 Usage
 -----
@@ -26,6 +33,23 @@ package { 'emacs':
   ensure   => absent,
   provider => pkgin,
 }
+```
+
+If using the Service Management Facility (SMF) to run `puppet agent` (or `puppetd`),
+ensure that the `pkgin` binary is in your `PATH` with something like the following:
+
+```xml
+<exec_method name='start' type='method'
+    exec='/opt/local/bin/puppet agent --config %{config_file}' timeout_seconds='60'>
+  <method_context>
+    <method_environment>
+      <envvar name='PATH' value='/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin'/>
+    </method_environment>
+  </method_context>
+</exec_method>
+<property_group name='application' type='application'>
+  <propval name='config_file' type='astring' value='/opt/local/etc/puppet/puppet.conf'/>
+</property_group>
 ```
 
 Features
