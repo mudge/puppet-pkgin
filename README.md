@@ -1,4 +1,4 @@
-Puppet pkgin Module
+Puppet pkgin Module [![Build Status](https://secure.travis-ci.org/mudge/puppet-pkgin.png?branch=master)](http://travis-ci.org/mudge/puppet-pkgin)
 ===================
 
 This is a Puppet module to install and uninstall packages using [`pkgin`][0], a
